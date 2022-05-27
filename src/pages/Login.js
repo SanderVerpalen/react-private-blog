@@ -8,7 +8,7 @@ function Login() {
 
     function login() {
         console.log("Je wordt ingelogd!")
-
+/*video @ 1.12.36 week 14*/
         history.push('/');
     }
 
