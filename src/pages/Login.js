@@ -1,15 +1,37 @@
 import React, {useState} from 'react';
 import {useHistory} from "react-router-dom";
 
-function Login() {
+function Login({authenticator, authenticatorFunction}) {
 
-    const [state, setState] = useState({name: '', password: ''})
+    const [state, setState] = useState({name: '', password: '', wrongCred: false})
+
     const history = useHistory();
 
+    const name = "Sander";
+    const passWord = "p";
+
     function login() {
-        console.log("Je wordt ingelogd!")
-/*video @ 1.12.36 week 14*/
-        history.push('/');
+
+        if (state.name === name & state.password === passWord) {
+
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    wrongCred: false
+                }
+            })
+
+            authenticatorFunction(!authenticator)
+            history.push('/blogposts')
+
+        } else {
+            setState(prevState => {
+                return {
+                    ...prevState,
+                    wrongCred: true
+                }
+            })
+        }
     }
 
     return (
@@ -20,12 +42,10 @@ function Login() {
 
                 <fieldset>
                     <form
-                        onSubmit={(e) =>
-                        {
+                        onSubmit={(e) => {
                             e.preventDefault();
-                            console.log(state.name);
-                            console.log(state.password);
                             login();
+
                         }}
                     >
 
@@ -34,11 +54,11 @@ function Login() {
                             type="text"
                             onChange={(e) =>
 
-                                setState(prevState =>
-                                {
+                                setState(prevState => {
                                     return {
                                         ...prevState,
-                                        name: e.target.value}
+                                        name: e.target.value
+                                    }
                                 })}
 
                         />
@@ -48,10 +68,11 @@ function Login() {
                             type="text"
                             onChange={(e) =>
 
-                                setState(prevState =>
-                                { return {
-                                    ...prevState,
-                                    password: e.target.value}
+                                setState(prevState => {
+                                    return {
+                                        ...prevState,
+                                        password: e.target.value
+                                    }
                                 })}
                         />
 
@@ -59,8 +80,10 @@ function Login() {
 
                     </form>
                 </fieldset>
-
             </div>
+            {state.wrongCred &&
+                <p>Verkeerde paswoord of gebruikersnaam.</p>
+            }
         </main>
     )
 }

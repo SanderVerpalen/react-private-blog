@@ -24,13 +24,13 @@ form {
   align-items: flex-start;
 }
 
-button {
-  margin-top: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: orangered;
-  width: 100px;
-}
+/*button {*/
+/*  margin-top: 10px;*/
+/*  border: none;*/
+/*  border-radius: 10px;*/
+/*  background-color: orangered;*/
+/*  width: 100px;*/
+/*}*/
 
 fieldset {
   max-width: 250px;

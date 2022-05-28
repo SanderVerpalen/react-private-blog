@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     Switch,
-    Route,
+    Route, Redirect,
 } from 'react-router-dom';
 import TopMenu from "./components/TopMenu";
 import HomePage from "./pages/Home"
@@ -16,19 +16,25 @@ function App() {
 
     return (
         <>
-            <TopMenu />
+            <TopMenu
+                authenticator={isAuthenticated}
+                authenticatorFunction={toggleIsAuthenticated}
+            />
             <Switch>
                 <Route exact path="/">
                     <HomePage />
                 </Route>
                 <Route  exact path="/blogposts">
-                    <BlogPosts />
+                    {isAuthenticated=== true ? <BlogPosts />: <Redirect to="/login"/>}
                 </Route>
                 <Route  exact path="/login">
-                    <Login />
+                    <Login
+                        authenticator={isAuthenticated}
+                        authenticatorFunction={toggleIsAuthenticated}
+                    />
                 </Route>
                 <Route   path="/blogposts/:id">
-                    <BlogPost />
+                    {isAuthenticated=== true ? <BlogPost />: <Redirect to="/login"/>}
                 </Route>
             </Switch>
         </>

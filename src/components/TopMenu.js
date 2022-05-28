@@ -1,7 +1,16 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {NavLink, useHistory} from "react-router-dom";
 
-function TopMenu() {
+function TopMenu({authenticator, authenticatorFunction}) {
+
+    const history = useHistory();
+
+    function logOut() {
+        console.log("U wordt uitgelogd");
+        authenticatorFunction(!authenticator);
+        history.push("/");
+    }
+
     return (
         <nav>
             <div className="nav-container">
@@ -14,19 +23,22 @@ function TopMenu() {
                     </li>
 
                     <li>
-                        <NavLink
-                            exact to="/blogposts"
-                            className="nav-link"
-                            activeClassName="active-link"
-                        >Blogposts</NavLink>
+                        {authenticator &&
+                            <NavLink
+                                exact to="/blogposts"
+                                className="nav-link"
+                                activeClassName="active-link"
+                            >
+                                Blogposts
+                            </NavLink>}
                     </li>
 
                     <li>
-                        <NavLink
+                        {!authenticator ? <NavLink
                             to="/login"
                             className="nav-link"
                             activeClassName="active-link"
-                        >Login</NavLink>
+                        >Login</NavLink> : <button onClick={logOut}>Logout</button>}
                     </li>
                 </ul>
             </div>

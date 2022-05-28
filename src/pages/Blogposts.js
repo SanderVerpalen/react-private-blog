@@ -12,7 +12,6 @@ function BlogPosts() {
                 <ul className="link-list">
                     {blogs.map((blog) =>
                         <li key={blog.id}><Link
-
                             to={"/blogposts/" + blog.id}
                             className="link"
                         >
